@@ -1,0 +1,56 @@
+namespace EnityFramework
+{
+    public partial class AddStudent : System.Web.UI.Page
+    {
+        UsersContext objUsersContext = new UsersContext();
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            {
+                List<StudentDetails> objStudentDetails = objUsersContext.StudentDbset.ToList();
+                grvStudentDetails.DataSource = objStudentDetails;
+                grvStudentDetails.DataBind();
+                btnUpdate.Visible = false;
+            }
+        }
+        
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            StudentDetails objStudentDetails = new StudentDetails();
+            objStudentDetails.StudentName = txtStudentName.Text;
+            objStudentDetails.Age = Convert.ToInt32(txtAge.Text);
+            objUsersContext.StudentDbset.Add(objStudentDetails);
+            objUsersContext.SaveChanges();
+            Response.Write("Added Successfully");
+        }
+
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            GridViewRow row = (GridViewRow)btn.NamingContainer;
+            if (row != null)
+            {
+                int index = row.RowIndex;               
+                txtStudentName.Text = row.Cells[1].Text;
+                txtAge.Text = row.Cells[2].Text;
+                hfId.Value = row.Cells[0].Text;
+
+            }
+            btnSave.Visible = false;
+            btnUpdate.Visible = true;
+        }
+
+        protected void btnUpdate_Click(object sender, EventArgs e)
+        {
+            int id = Convert.ToInt32(hfId.Value);
+            StudentDetails objStudentDetails = objUsersContext.StudentDbset.Find(id);
+            objStudentDetails.StudentName = txtStudentName.Text; 
+            objStudentDetails.Age = Convert.ToInt32(txtAge.Text);
+            objUsersContext.Entry(objStudentDetails).State = EntityState.Modified;
+            objUsersContext.SaveChanges();
+            Response.Write("Updated Successfully");
+            Page_Load(null, null);
+        }
+    }
+}
