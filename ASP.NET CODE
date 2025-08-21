@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <table border="0" cellspacing="2" cellpadding="2" style="padding:5px">  
+                <tr>  
+                    <td colspan="2">Add Student Details  
+                    </td>  
+                </tr>  
+                <tr>  
+                    <td>
+                        Student Name  
+                    </td>  
+                    <td>  
+                        <asp:TextBox ID="txtStudentName" runat="server"></asp:TextBox>  
+                    </td>  
+                </tr>  
+                <tr>  
+                    <td>  
+                        Age  
+                    </td>  
+                    <td>  
+                        <asp:TextBox ID="txtAge" runat="server"></asp:TextBox>  
+                    </td>  
+                </tr>  
+                <tr>  
+                    <td></td>  
+                    <td>  
+                        <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />  
+                          <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdate_Click" />  
+                        <asp:HiddenField ID="hfId" runat="server" />  
+                    </td>  
+                </tr>  
+            </table>  
+            <table border="0" cellspacing="2" cellpadding="2">  
+                <tr>  
+                    <td colspan="3">  
+                        <asp:GridView ID="grvStudentDetails" runat="server" AutoGenerateColumns="false">  
+                            <Columns>  
+                                <asp:BoundField HeaderText="Id" DataField="Id" />  
+                                 <asp:BoundField HeaderText="Student Name" DataField="StudentName" />  
+                                 <asp:BoundField HeaderText="Age" DataField="Age" />  
+                                <asp:TemplateField>  
+                                    <ItemTemplate>  
+                                        <asp:Button ID="btnEdit" runat="server" Text="Edit" OnClick="btnEdit_Click" />  
+                                    </ItemTemplate>  
+                                </asp:TemplateField>  
+                            </Columns>  
+                        </asp:GridView>  
+                     </td>  
+                </tr>  
+            </table>  
+        </div>
+    </form>
+</body>
+</html>
